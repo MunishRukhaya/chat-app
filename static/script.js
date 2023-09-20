@@ -1,7 +1,8 @@
+const socket = io();
 let username = '';
 
 function startChat() {
-  username = document.getElementById('username').value;
+ username = document.getElementById('username').value;
 
   if (username.trim() === '') {
     alert('Please enter your name.');
@@ -30,10 +31,18 @@ function sendMessage() {
   newMessage.className = 'message sender';
   newMessage.innerHTML = `${username}: ${message}`;
   chatArea.appendChild(newMessage);
-
-  // Scroll to the bottom of the chat area
+  socket.emit('chat-message', `${username}: ${message}`)
   chatArea.scrollTop = chatArea.scrollHeight;
 }
+
+socket.on('chat-message', (message)=> {
+  const chatArea = document.getElementById('chatArea');
+  const newMessage = document.createElement('div');
+  newMessage.className = 'message receiver';
+  newMessage.innerHTML = message;
+  chatArea.appendChild(newMessage);
+  chatArea.scrollTop = chatArea.scrollHeight;
+})
 
 
 
