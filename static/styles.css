@@ -61,7 +61,13 @@ nav button {
     padding: 10px;
     border-radius: 10px;
 }
-
+.join {
+    text-align: center;
+    background-color: #a39494;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+}
 .sender {
     background-color: black;
     color: white;

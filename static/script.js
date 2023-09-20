@@ -2,7 +2,7 @@ const socket = io();
 let username = '';
 
 function startChat() {
- username = document.getElementById('username').value;
+  username = document.getElementById('username').value;
 
   if (username.trim() === '') {
     alert('Please enter your name.');
@@ -12,10 +12,21 @@ function startChat() {
   document.getElementById('name-container').style.display = 'none';
   document.getElementById('chatContainer').style.display = 'block';
   document.getElementById('exit').style.display = 'block';
+
+  socket.emit('user-joined', `${username} has joined the chat!`);
+
+  socket.on('user-joined', (message) => {
+    const chatArea = document.getElementById('chatArea');
+    const newMessage = document.createElement('div');
+    newMessage.className = 'join';
+    newMessage.innerHTML = message;
+    chatArea.appendChild(newMessage);
+    chatArea.scrollTop = chatArea.scrollHeight;
+  });
 }
 
 function exitChat() {
-    location.reload();
+  location.reload();
 }
 function sendMessage() {
   const messageInput = document.getElementById('messageInput');
@@ -35,15 +46,14 @@ function sendMessage() {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-socket.on('chat-message', (message)=> {
+socket.on('chat-message', (message) => {
   const chatArea = document.getElementById('chatArea');
   const newMessage = document.createElement('div');
   newMessage.className = 'message receiver';
   newMessage.innerHTML = message;
   chatArea.appendChild(newMessage);
   chatArea.scrollTop = chatArea.scrollHeight;
-})
+});
 
 
 
-  
