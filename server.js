@@ -23,6 +23,6 @@ io.on('disconnect', (socket) => {
   console.log('a user disconnected');
 });
 
-server.listen(5600, () => {
+server.listen(PORT, () => {
   console.log('listening on *:5600');
 });
