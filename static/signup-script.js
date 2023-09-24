@@ -6,7 +6,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
-  const url = 'http://localhost:5600/signup';
+  const url = `${window.location.host}/signup`;
 
   fetch(url, {
     method: 'POST',

@@ -4,7 +4,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
   
-    const url = 'http://localhost:5600/login';
+    const url = `${window.location.host}/login`;
   
     fetch(url, {
       method: 'POST',
