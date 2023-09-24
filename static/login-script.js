@@ -4,9 +4,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
   
-    const url = `${window.location.host}/login`;
-  
-    fetch(url, {
+    fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

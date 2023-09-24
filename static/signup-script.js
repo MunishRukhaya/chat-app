@@ -6,9 +6,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
-  const url = `${window.location.host}/signup`;
-
-  fetch(url, {
+  fetch('/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
