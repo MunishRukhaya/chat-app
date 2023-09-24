@@ -1,19 +1,18 @@
 const socket = io();
-let username = '';
 
-function startChat() {
-  username = document.getElementById('username').value;
-
-  if (username.trim() === '') {
-    alert('Please enter your name.');
-    return;
+function getCookie(cookieName) {
+  const cookies = document.cookie.split('; ');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.split('=');
+    if (name === cookieName) {
+      return decodeURIComponent(value);
+    }
   }
+  return null;
+}
 
-  document.getElementById('name-container').style.display = 'none';
-  document.getElementById('chatContainer').style.display = 'block';
-  document.getElementById('exit').style.display = 'block';
-
-  socket.emit('user-joined', `${username} has joined the chat!`);
+const username = getCookie('username');
+socket.emit('user-joined', `${username} has joined the chat!`);
 
   socket.on('user-joined', (message) => {
     const chatArea = document.getElementById('chatArea');
@@ -22,12 +21,11 @@ function startChat() {
     newMessage.innerHTML = message;
     chatArea.appendChild(newMessage);
     chatArea.scrollTop = chatArea.scrollHeight;
-  });
-}
+});
 
 function exitChat() {
   location.reload();
-}
+};
 function sendMessage() {
   const messageInput = document.getElementById('messageInput');
   const message = messageInput.value;
