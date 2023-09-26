@@ -17,7 +17,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         window.location.assign('chat.html');
       } else {
         response = response.json();
-        alert(`Error signing up:${response.message}`);
+        alert(`PLease check credentials`);
       }
     })
     .catch(error => console.error('Error:', error));
