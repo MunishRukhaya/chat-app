@@ -1,13 +1,19 @@
 const express = require("express");
 const app = express();
+const bodyparser = require("body-parser");
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+const jwt = require('jsonwebtoken');
+
+const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
+
+// SOCKET SERVER
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-const dotenv = require("dotenv");
-const bodyparser = require("body-parser");
-const cors = require("cors");
-dotenv.config();
 
 // STATIC FILES AND MIDDLEWARES
 app.use(express.static("static"));
@@ -23,7 +29,34 @@ const postLogin = require("./controllers/postlogin");
 const dbconnect = require("./models/mongoconfig");
 dbconnect();
 
+const userProtect = (req)=> {
+  if(req.cookies.login) {
+    const isLogin = jwt.verify(req.cookies.login, process.env.JWT_KEY);
+    if(isLogin) {
+      return true;
+    }
+  }
+  return false;
+}
+
 // ROUTES
+app.get('/', (req,res)=> {
+  const isLogin = userProtect(req);
+  if(isLogin) {
+    res.redirect('/chat.html');
+  } else {
+    res.redirect('/signup.html');
+  }
+})
+
+app.get('/signup', (req,res)=> {
+  res.redirect('/signup.html');
+})
+app.get('/login', (req,res)=> {
+  res.redirect('/login.html');
+})
+
+
 app.post("/signup", postSignup);
 app.post("/login", postLogin);
 

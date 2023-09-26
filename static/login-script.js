@@ -14,7 +14,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     .then(response => {
       if (response.ok) {
         // Redirect to the login page if the signup was successful
-        window.location.assign('index.html');
+        window.location.assign('chat.html');
       } else {
         response = response.json();
         alert(`Error signing up:${response.message}`);
