@@ -1,6 +1,5 @@
 # chat-app
 
-```markdown
 [Chat App](https://chat-app-blik.onrender.com)
 
 Chat app in which a user can chat with other users.
